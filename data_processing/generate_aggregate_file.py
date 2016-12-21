@@ -9,8 +9,9 @@ redirect IO to a file.  For example, you could type this on the command line:
 ./generate_aggregate_file.py > aggregate_data.tsv
 """
 
-def process_line(line, date_prefix):
-    components = line.split('\t')
+
+def process_line(the_line, date_prefix):
+    components = the_line.split('\t')
     components[0] = process_time_field(time=components[0], date_prefix=date_prefix)  # add date to time field
     components[3] = process_language_field(language_field=components[3])
     components[4] = process_name(components[4])
@@ -43,6 +44,8 @@ def process_name(name):
 records_to_write = []
 relative_path_to_data_directory = '../RawData'
 file_names = os.listdir(relative_path_to_data_directory)
+
+print("Date\tDepartment\tCourse\tLanguage\tTutor")
 
 for f_name in file_names:
     comps = f_name.split()
