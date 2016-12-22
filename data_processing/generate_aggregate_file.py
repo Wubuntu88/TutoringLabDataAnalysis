@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import os
-import string
 
 """
 This script will go through the data in the RawData folder, process it,
@@ -12,6 +11,7 @@ redirect IO to a file.  For example, you could type this on the command line:
 
 def process_line(the_line, date_prefix):
     components = the_line.split('\t')
+    components = [comp.strip() for comp in components]
     components[0] = process_time_field(time=components[0], date_prefix=date_prefix)  # add date to time field
     components[3] = process_language_field(language_field=components[3])
     components[4] = process_name(components[4])
@@ -48,8 +48,10 @@ file_names = os.listdir(relative_path_to_data_directory)
 print("Date\tDepartment\tCourse\tLanguage\tTutor")
 
 for f_name in file_names:
+    if f_name == '.DS_Store':
+        continue
     comps = f_name.split()
-    the_date_str = string.replace(comps[-1], '.tsv', '')
+    the_date_str = comps[-1].replace('.tsv', '')
     path_to_the_file = relative_path_to_data_directory + '/' + f_name
     the_file = open(path_to_the_file, 'r')
     header = the_file.readline()  # ignore header
