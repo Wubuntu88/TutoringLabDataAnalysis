@@ -1,7 +1,12 @@
+#!/usr/bin/python
 import pandas as pd
 import matplotlib.pyplot as plt
 from dateutil import parser
-# import seaborn as sns
+
+"""
+This script creates a box plot showing the quartile distribution
+of tutoring times by the day of the week;
+"""
 
 data_type_dict = \
     {"Date": str,
@@ -23,6 +28,7 @@ counts = gb.values
 mondays, tuesdays, wednesdays, thursdays, fridays = [[] for _ in range(5)]
 
 dates_counts_zip = zip(dates_as_str, counts)
+
 
 for date_count_tuple in dates_counts_zip:
     day_of_week = parser.parse(date_count_tuple[0]).weekday()  # 0-4 is Mon-Fri
